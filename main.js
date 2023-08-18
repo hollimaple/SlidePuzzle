@@ -56,7 +56,7 @@ function move(x,y){
         if(Math.abs(x)>Math.abs(y)){
             //正の数の時
             if(x>0){
-                swap(i,i+1);
+                swap(index,index+1);
             }else{
                 //負の数の時
 
