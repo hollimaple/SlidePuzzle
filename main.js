@@ -40,7 +40,7 @@ window.addEventListener('DOMContentLoaded', function(e){
                     //1秒ごとにイベント
                     setInterval(() => {
                         deviceOrientation(e);
-                    },1000);
+                    },500);
                 }
                 , false);
             }
@@ -52,7 +52,7 @@ window.addEventListener('DOMContentLoaded', function(e){
             //1秒ごとにイベント
             setInterval(() => {
                 deviceOrientation(e);
-            },1000);
+            },500);
         }
         , false);
     }
