@@ -32,7 +32,7 @@ window.addEventListener('DOMContentLoaded', function(e){
         table.append(tr);
     }
     //盤面の初期化(クリックを呼び出すことで解ける問題とする)
-    for(let i=0;i<6;i++){
+    for(let i=0;i<100;i++){
         click(Math.floor(Math.random()*16));
     }
     //iOS対応（中止）
@@ -47,6 +47,7 @@ window.addEventListener('DOMContentLoaded', function(e){
             console.error(e);
         })
     }else{
+        //Androidはそのまま加速度センサーの値を取得していく
         window.addEventListener("deviceorientation", deviceOrientation, false);
     }
     //tableの内容が変わったとき
