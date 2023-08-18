@@ -49,6 +49,20 @@ window.addEventListener('DOMContentLoaded', function(e){
     }else{
         window.addEventListener("deviceorientation", deviceOrientation, false);
     }
+    //tableの内容が変わったとき
+    $("#td").change(function() {
+        //swap後にパズルが完成していればダイアログを出す
+        let n = tiles.length;
+        let count = 0;
+        for(let k=0;k<n;k++){
+            if(tiles[k].value == k){
+                count++;
+            }
+        }
+        if(n == count){
+            alert("パズルが完成しました!");
+        }
+    });
 });
 
 //参考:https://kkblab.com/make/javascript/acc.html
@@ -161,17 +175,4 @@ function swap(i,j){
     tiles[i].value = tiles[j].value;
     tiles[j].textContent = tmp.content;
     tiles[j].value = tmp.val;
-    //swap後にパズルが完成していればダイアログを出す
-    let n = tiles.length;
-    let count = 0;
-    for(let k=0;k<n;k++){
-        if(tiles[k].value == k){
-            count++;
-        }
-    }
-    if(n == count){
-        alert("パズルが完成しました!");
-    }
-    console.log(n);
-    console.log(count);
 }
