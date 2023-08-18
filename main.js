@@ -52,23 +52,6 @@ window.addEventListener('DOMContentLoaded', function(e){
         //Androidはそのまま加速度センサーの値を取得していく
         window.addEventListener("deviceorientation", deviceOrientation, false);
     }
-    //tableの内容が変わったとき
-    $(this.document).change(function() {
-        //swap後にパズルが完成していればダイアログを出す
-        let n = tiles.length;
-        let count = 0;
-        for(let k=0;k<n;k++){
-            if(tiles[k].value == k){
-                count++;
-            }
-        }
-        if(n == count){
-            //開始時じゃないときは完成アラートを出す
-            if(!is_start){
-                alert("パズルが完成しました!");
-            }
-        }
-    });
 });
 
 //参考:https://kkblab.com/make/javascript/acc.html
@@ -182,4 +165,18 @@ function swap(i,j){
     tiles[i].value = tiles[j].value;
     tiles[j].textContent = tmp.content;
     tiles[j].value = tmp.val;
+    //swap後にパズルが完成していればダイアログを出す
+    let n = tiles.length;
+    let count = 0;
+    for(let k=0;k<n;k++){
+        if(tiles[k].value == k){
+            count++;
+        }
+    }
+    if(n == count){
+        //開始時じゃないときは完成アラートを出す
+        if(!is_start){
+            alert("パズルが完成しました!");
+        }
+    }
 }
