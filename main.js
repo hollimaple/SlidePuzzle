@@ -1,7 +1,7 @@
 "use strict";
 
 var tiles = []; //タイルの配列
-const is_iOS = /iPad|iPhone|iPod|macintosh/.test(navigator.userAgent) && 'ontouchend' in document;
+const is_iOS = /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent) && 'ontouchend' in document;
 
 //差し替え可能なところはJQueryの記述に書き直しを行った
 //画面読み込み時に実行
