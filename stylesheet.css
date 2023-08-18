@@ -1,1 +1,13 @@
+.tile{
+    width: 70px;
+    height: 70px;
 
+    border: 1px solid blue;
+    border-radius: 2px;
+
+    text-align: center;
+    font-size: 35px;
+
+    background-color: lightblue;
+    box-shadow: rgb(0, 0, 255) 5px 5px;
+}
