@@ -1,6 +1,7 @@
 "use strict";
 
 var tiles = []; //タイルの配列
+//ユーザーエージェント判定
 const is_iOS = /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent) && 'ontouchend' in document;
 
 //差し替え可能なところはJQueryの記述に書き直しを行った
@@ -31,10 +32,11 @@ window.addEventListener('DOMContentLoaded', function(){
 
     console.log(is_iOS);
 
-    //iOS対応
+    //iOS対応（中止）
+    //ダイアログが出ないため、ユーザーエージェント判定だけを行う
     //参考:https://zenn.dev/homing/articles/705ac9c0cd1006
     if (is_iOS){
-        navigation.permissions.request({ name: "gyroscope" }).then(response => {
+        navigator.permissions.query({ name:"gyroscope"}).then(response => {
             if (response === "granted") {
                 window.addEventListener("deviceorientation", deviceOrientation, false);
             }
@@ -137,3 +139,4 @@ function swap(i,j){
     tiles[j].textContent = tmp.content;
     tiles[j].value = tmp.val;
 }
+
