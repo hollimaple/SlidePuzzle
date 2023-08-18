@@ -29,6 +29,8 @@ window.addEventListener('DOMContentLoaded', function(){
         click(Math.floor(Math.random()*16));
     }
 
+    console.log(is_iOS);
+
     //iOS対応
     //参考:https://zenn.dev/homing/articles/705ac9c0cd1006
     if (is_iOS){
