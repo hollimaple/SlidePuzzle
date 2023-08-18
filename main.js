@@ -45,7 +45,9 @@ function move(x,y){
     let n = tiles.length;
     let index;
     for(let i=0;i<n;i++){
-        
+        if(tiles[i].value == 0){
+            index = i;
+        }
     }
 
     //絶対値が閾値以上傾いている時にタイルの入れ替えを実行する
@@ -54,7 +56,7 @@ function move(x,y){
         if(Math.abs(x)>Math.abs(y)){
             //正の数の時
             if(x>0){
-
+                swap(i,i+1);
             }else{
                 //負の数の時
 
@@ -71,6 +73,11 @@ function move(x,y){
             }
         }
     }
+}
+
+//動かせるか確認
+function check(){
+
 }
 
 //盤面の初期化は内部的にはクリックで実装
@@ -95,4 +102,3 @@ function swap(i,j){
     tiles[j].textContent = tmp;
     tiles[j].value = tmp;
 }
-
