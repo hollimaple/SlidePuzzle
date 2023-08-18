@@ -96,11 +96,11 @@ function click(index){
 //タイルの入れ替え
 function swap(i,j){
     let tmp = {
-        value: tiles[i].value,
-        textContent: tiles[i].textContent
+        val: tiles[i].value,
+        content: tiles[i].textContent
     }
     tiles[i].textContent = tiles[j].textContent;
     tiles[i].value = tiles[j].value;
-    tiles[j].textContent = tmp.textContent;
-    tiles[j].value = tmp.value;
+    tiles[j].textContent = tmp.content;
+    tiles[j].value = tmp.val;
 }
