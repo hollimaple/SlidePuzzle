@@ -69,7 +69,7 @@ function move(x,y){
                 swap(index,index+4);
             }else{
                 //負の数の時
-                swap(index,index-1);
+                swap(index,index-4);
             }
         }
     }
