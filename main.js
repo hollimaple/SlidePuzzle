@@ -31,7 +31,7 @@ window.addEventListener('DOMContentLoaded', function(){
 
 //iOS対応
 //参考:https://zenn.dev/homing/articles/705ac9c0cd1006
-if (device === Device.ios){
+if (/iPad|iPhone|iPod/.test(navigator.userAgent)){
     const response = DeviceOrientationEvent.requestPermission();
     if (response === "granted") {
         window.addEventListener("deviceorientation", deviceOrientation, false);
