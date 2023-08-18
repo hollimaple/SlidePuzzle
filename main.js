@@ -29,18 +29,16 @@ window.addEventListener('DOMContentLoaded', function(){
         click(Math.floor(Math.random()*16));
     }
 
-    console.log(is_iOS);
-
     //iOS対応
     //参考:https://zenn.dev/homing/articles/705ac9c0cd1006
     if (is_iOS){
-        const response = DeviceOrientationEvent.requestPermission();
-        if (response === "granted") {
+        DeviceOrientationEvent.requestPermission().then((response) => {
+            if (response === "granted") {
             window.addEventListener("deviceorientation", deviceOrientation, false);
-        }else{
-            //許可が取れなければ何もしない
-        }
-        window.addEventListener("deviceorientation", deviceOrientation, false);
+            }else{
+                //許可が取れなければ何もしない
+            }
+        });
     }else{
         window.addEventListener("deviceorientation", deviceOrientation, false);
     }
