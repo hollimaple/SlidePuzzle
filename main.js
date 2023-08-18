@@ -9,6 +9,8 @@ var moveTo = {
     x: 0,
     y: 0
 }; //前回移動方向 x:1右 x:-1左 y:1上 y:-1下
+//スタートフラグ
+var is_start = true;
 
 //差し替え可能なところはJQueryの記述に書き直しを行った
 //画面読み込み時に実行
@@ -61,7 +63,10 @@ window.addEventListener('DOMContentLoaded', function(e){
             }
         }
         if(n == count){
-            alert("パズルが完成しました!");
+            //開始時じゃないときは完成アラートを出す
+            if(!is_start){
+                alert("パズルが完成しました!");
+            }
         }
     });
 });
@@ -89,9 +94,10 @@ function move(x,y){
             index = i;
         }
     }
-
     //絶対値が閾値以上傾いている時にタイルの入れ替えを実行する
     if(Math.abs(x)>=25 || Math.abs(y)>=25){
+        //スタートフラグを切る
+        is_start = false;
         //xが大きい時
         if(Math.abs(x)>Math.abs(y)){
             //正の数の時
