@@ -64,10 +64,12 @@ function deviceOrientation(e){
     //移動量から入れ替え要不要、入れ替え方向を判断
     move(vec.x,vec.y);
     //1秒ごとに前回移動方向をリセット
+    /*
     setInterval(() => {
         moveTo.x = 0;
         moveTo.y = 0;
     },1000);
+    */
 }
 
 //スマートフォン端末を動かすことでタイルを動かす
