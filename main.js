@@ -71,7 +71,7 @@ function deviceOrientation(e){
     //移動量から入れ替え要不要、入れ替え方向を判断
     move(vec.x,vec.y);
     //一秒待機させる
-    wait(1);
+    wait(2);
 }
 
 //スマートフォン端末を動かすことでタイルを動かす
