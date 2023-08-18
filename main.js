@@ -4,6 +4,7 @@ var tiles = []; //タイルの配列
 //ユーザーエージェント判定
 const is_iOS = /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent) && 'ontouchend' in document;
 //移動フラグ
+//1個づつスライドするようにする
 var moveTo = {
     x: 0,
     y: 0
@@ -31,7 +32,7 @@ window.addEventListener('DOMContentLoaded', function(e){
         table.append(tr);
     }
     //盤面の初期化(クリックを呼び出すことで解ける問題とする)
-    for(let i=0;i<100;i++){
+    for(let i=0;i<6;i++){
         click(Math.floor(Math.random()*16));
     }
 
@@ -150,6 +151,7 @@ function click(index){
     }else if(i%4!=3 && tiles[i+1].value==0){
         swap(i,i+1);
     }
+    
 }
 
 //タイルの入れ替え
@@ -162,4 +164,14 @@ function swap(i,j){
     tiles[i].value = tiles[j].value;
     tiles[j].textContent = tmp.content;
     tiles[j].value = tmp.val;
+    //swap後にパズルが完成していればダイアログを出す
+    let n = tiles.length;
+    for(let k=0;k<n;k++){
+        if(tiles[k] == k){
+            count++;
+        }
+    }
+    if(n == count){
+        alert("パズルが完成しました!");
+    }
 }
