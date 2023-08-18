@@ -6,7 +6,7 @@ const is_iOS = /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent) && 'ontouc
 
 //差し替え可能なところはJQueryの記述に書き直しを行った
 //画面読み込み時に実行
-window.addEventListener('DOMContentLoaded', function(){
+window.addEventListener('DOMContentLoaded', function(e){
     let table = $("#table").get(0);
     for(let i=0;i<4;i++){
         let tr = $("<tr>").get(0);
@@ -36,13 +36,25 @@ window.addEventListener('DOMContentLoaded', function(){
     if (is_iOS){
         DeviceOrientationEvent.requestPermission().then(response => {
             if (response === "granted") {
-                window.addEventListener("deviceorientation", deviceOrientation, false);
+                window.addEventListener("deviceorientation", function(){
+                    //1秒ごとにイベント
+                    setInterval(() => {
+                        deviceOrientation(e);
+                    },1000);
+                }
+                , false);
             }
         }).catch((e) => {
             console.error(e);
         })
     }else{
-        window.addEventListener("deviceorientation", deviceOrientation, false);
+        window.addEventListener("deviceorientation", function(){
+            //1秒ごとにイベント
+            setInterval(() => {
+                deviceOrientation(e);
+            },1000);
+        }
+        , false);
     }
 
 });
@@ -58,9 +70,7 @@ function deviceOrientation(e){
     //加速度センサーのイベントが発火したら
     //移動量から入れ替え要不要、入れ替え方向を判断
     //1秒ごとにイベント
-    window.setInterval(() => {
-        move(vec.x,vec.y);
-    },1000);
+    move(vec.x,vec.y);
 
 }
 
