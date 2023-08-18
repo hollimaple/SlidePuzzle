@@ -99,6 +99,6 @@ function swap(i,j){
     let tmp = tiles[i].value;
     tiles[i].textContent = tiles[j].textContent;
     tiles[i].value = tiles[j].value;
-    tiles[j].textContent = tmp;
+    tiles[j].textContent = "";
     tiles[j].value = tmp;
 }
