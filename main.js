@@ -53,7 +53,7 @@ function move(x,y){
     }
 
     //絶対値が閾値以上傾いている時にタイルの入れ替えを実行する
-    if(Math.abs(x)>=1 || Math.abs(y)>=1){
+    if(Math.abs(x)>=2 || Math.abs(y)>=2){
         //xが大きい時
         if(Math.abs(x)>Math.abs(y)){
             //正の数の時
@@ -103,4 +103,6 @@ function swap(i,j){
     tiles[i].value = tiles[j].value;
     tiles[j].textContent = tmp;
     tiles[j].value = tmp;
+    const _sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+    await _sleep(2000);
 }
