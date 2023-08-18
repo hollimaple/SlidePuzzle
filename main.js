@@ -53,7 +53,7 @@ window.addEventListener('DOMContentLoaded', function(e){
         window.addEventListener("deviceorientation", deviceOrientation, false);
     }
     //tableの内容が変わったとき
-    $("td").change(function() {
+    $(this.document).change(function() {
         //swap後にパズルが完成していればダイアログを出す
         let n = tiles.length;
         let count = 0;
