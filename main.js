@@ -34,8 +34,6 @@ window.addEventListener("deviceorientation", function(e){
     let vec = {x: 0, y: 0}; //加速度センサー値格納用
     vec.x = e.gamma; //x方向の移動量
     vec.y = e.beta; //y方向の移動量
-    const _sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-    await _sleep(2000);
     //加速度センサーのイベントが発火したら
     //移動量から入れ替え要不要、入れ替え方向を判断
     move(vec.x,vec.y);
