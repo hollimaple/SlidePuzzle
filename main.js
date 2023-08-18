@@ -172,4 +172,6 @@ function swap(i,j){
     if(n == count){
         alert("パズルが完成しました!");
     }
+    console.log(n);
+    console.log(count);
 }
