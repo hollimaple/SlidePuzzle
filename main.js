@@ -32,11 +32,16 @@ window.addEventListener('DOMContentLoaded', function(){
     //iOS対応
     //参考:https://zenn.dev/homing/articles/705ac9c0cd1006
     if (is_iOS){
-        DeviceOrientationEvent.requestPermission().then(response => {
+        if ( DeviceOrientationEvent
+		&& DeviceOrientationEvent.requestPermission
+		&& typeof DeviceOrientationEvent.requestPermission === 'function'
+		){
+            DeviceOrientationEvent.requestPermission().then(response => {
             if (response === "granted") {
             window.addEventListener("deviceorientation", deviceOrientation, false);
             }
-        }).catch(console.error);
+            }).catch(console.error);
+        }
     }else{
         window.addEventListener("deviceorientation", deviceOrientation, false);
     }
@@ -133,3 +138,4 @@ function swap(i,j){
     tiles[j].textContent = tmp.content;
     tiles[j].value = tmp.val;
 }
+
