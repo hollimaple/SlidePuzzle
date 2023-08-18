@@ -1,6 +1,7 @@
 "use strict";
 
 var tiles = []; //タイルの配列
+const is_iOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
 //差し替え可能なところはJQueryの記述に書き直しを行った
 //画面読み込み時に実行
@@ -27,22 +28,22 @@ window.addEventListener('DOMContentLoaded', function(){
     for(let i=0;i<100;i++){
         click(Math.floor(Math.random()*16));
     }
-});
 
-//iOS対応
-//参考:https://zenn.dev/homing/articles/705ac9c0cd1006
-const is_iOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-if (is_iOS){
-    const response = DeviceOrientationEvent.requestPermission();
-    if (response === "granted") {
+    //iOS対応
+    //参考:https://zenn.dev/homing/articles/705ac9c0cd1006
+    if (is_iOS){
+        const response = DeviceOrientationEvent.requestPermission();
+        if (response === "granted") {
+            window.addEventListener("deviceorientation", deviceOrientation, false);
+        }else{
+            //許可が取れなければ何もしない
+        }
         window.addEventListener("deviceorientation", deviceOrientation, false);
     }else{
-        //許可が取れなければ何もしない
+        window.addEventListener("deviceorientation", deviceOrientation, false);
     }
-    window.addEventListener("deviceorientation", deviceOrientation, false);
-}else{
-    window.addEventListener("deviceorientation", deviceOrientation, false);
-}
+
+});
 
 //参考:https://dianxnao.com/javascript%E7%AB%AF%E6%9C%AB%E3%81%AE%E5%82%BE%E3%81%8D%E3%81%AB%E5%BF%9C%E3%81%98%E3%81%A6%E3%83%9C%E3%83%BC%E3%83%AB%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/
 //加速度センサーの値を取得
