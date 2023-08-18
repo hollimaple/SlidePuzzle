@@ -60,14 +60,14 @@ function move(x,y){
                 //空いているタイルiが
                 //4の倍数の時はこれ以上swapする必要がない(衝突判定)
                 //(4の倍数の時以外はswap)
-                if((index%4) != 0){
+                if((index%4) != 3){
                     swap(index,index+1);
                 }
             }else{
                 //負の数の時
                 //Left
                 //4の倍数-1の時はこれ以上swapする必要がない
-                if((index%4) != 3){
+                if((index%4) != 0){
                     swap(index,index-1);
                 }
             }
