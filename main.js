@@ -8,7 +8,7 @@ const is_iOS = /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent) && 'ontouc
 var moveTo = {
     x: 0,
     y: 0
-}; //前回移動方向 x:1右 -1左 y:1上 -1下
+}; //前回移動方向 x:1右 x:-1左 y:1上 y:-1下
 
 //差し替え可能なところはJQueryの記述に書き直しを行った
 //画面読み込み時に実行
@@ -32,10 +32,9 @@ window.addEventListener('DOMContentLoaded', function(e){
         table.append(tr);
     }
     //盤面の初期化(クリックを呼び出すことで解ける問題とする)
-    for(let i=0;i<3;i++){
+    for(let i=0;i<6;i++){
         click(Math.floor(Math.random()*16));
     }
-
     //iOS対応（中止）
     //ダイアログが出ないため、ユーザーエージェント判定だけを行う
     //参考:https://zenn.dev/homing/articles/705ac9c0cd1006
@@ -50,7 +49,6 @@ window.addEventListener('DOMContentLoaded', function(e){
     }else{
         window.addEventListener("deviceorientation", deviceOrientation, false);
     }
-
 });
 
 //参考:https://kkblab.com/make/javascript/acc.html
@@ -151,7 +149,6 @@ function click(index){
     }else if(i%4!=3 && tiles[i+1].value==0){
         swap(i,i+1);
     }
-    
 }
 
 //タイルの入れ替え
