@@ -99,7 +99,6 @@ function swap(i,j){
         value: tiles[i].value,
         textContent: tiles[i].textContent
     }
-    console.log(tmp);
     tiles[i].textContent = tiles[j].textContent;
     tiles[i].value = tiles[j].value;
     tiles[j].textContent = tmp.textContent;
