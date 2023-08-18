@@ -32,13 +32,11 @@ window.addEventListener('DOMContentLoaded', function(){
     //iOS対応
     //参考:https://zenn.dev/homing/articles/705ac9c0cd1006
     if (is_iOS){
-        DeviceOrientationEvent.requestPermission().then((response) => {
+        DeviceOrientationEvent.requestPermission().then(response => {
             if (response === "granted") {
             window.addEventListener("deviceorientation", deviceOrientation, false);
-            }else{
-                //許可が取れなければ何もしない
             }
-        });
+        }).catch(console.error);
     }else{
         window.addEventListener("deviceorientation", deviceOrientation, false);
     }
