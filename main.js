@@ -56,27 +56,40 @@ function move(x,y){
         if(Math.abs(x)>Math.abs(y)){
             //正の数の時
             if(x>0){
-                swap(index,index+1);
+                //Right
+                //空いているタイルiが
+                //4の倍数の時はこれ以上swapする必要がない(衝突判定)
+                //(4の倍数の時以外はswap)
+                if((index%4) != 0){
+                    swap(index,index+1);
+                }
             }else{
                 //負の数の時
-                swap(index,index-1);
+                //Left
+                //4の倍数-1の時はこれ以上swapする必要がない
+                if((index%4) != 3){
+                    swap(index,index-1);
+                }
             }
         }else{
             //yが大きい時
             //正の数の時
             if(y>0){
-                swap(index,index+4);
+                //Down
+                //下に要素がない時はこれ以上swapする必要がない
+                if((i+4) < 16){
+                    swap(index,index+4);
+                }
             }else{
                 //負の数の時
-                swap(index,index-4);
+                //Up
+                //上に要素がない時はこれ以上swapする必要がない
+                if((i-4) >= 0){
+                    swap(index,index-4);
+                }
             }
         }
     }
-}
-
-//動かせるか確認
-function check(){
-
 }
 
 //盤面の初期化は内部的にはクリックで実装
@@ -96,8 +109,8 @@ function click(index){
 //タイルの入れ替え
 function swap(i,j){
     let tmp = {
-        val: tiles[i].value,
-        content: tiles[i].textContent
+        content: tiles[i].textContent,
+        val: tiles[i].value
     }
     tiles[i].textContent = tiles[j].textContent;
     tiles[i].value = tiles[j].value;
