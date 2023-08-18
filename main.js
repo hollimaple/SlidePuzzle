@@ -29,18 +29,24 @@ window.addEventListener('DOMContentLoaded', function(){
         click(Math.floor(Math.random()*16));
     }
 
+    console.log(is_iOS);
+
     //iOS対応
     //参考:https://zenn.dev/homing/articles/705ac9c0cd1006
     if (is_iOS){
-        if ( DeviceOrientationEvent
-		&& DeviceOrientationEvent.requestPermission
-		&& typeof DeviceOrientationEvent.requestPermission === 'function'
-		){
+        if (typeof DeviceOrientationEvent.requestPermission === 'function'){
             DeviceOrientationEvent.requestPermission().then(response => {
-            if (response === "granted") {
+                if (response === "granted") {
+                    window.addEventListener("deviceorientation", deviceOrientation, false);
+                }
+            }).catch((function(error) {
+                console.log("error");
+                // Trigger modal to ask for permissions
+                $('#askForPermission').modal('toggle')
+            }))
+        }else{
+            // handle regular non iOS 13+ devices
             window.addEventListener("deviceorientation", deviceOrientation, false);
-            }
-            }).catch(console.error);
         }
     }else{
         window.addEventListener("deviceorientation", deviceOrientation, false);
@@ -138,4 +144,3 @@ function swap(i,j){
     tiles[j].textContent = tmp.content;
     tiles[j].value = tmp.val;
 }
-
