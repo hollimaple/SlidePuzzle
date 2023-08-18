@@ -68,9 +68,9 @@ function move(x,y){
     }
 
     //絶対値が閾値以上傾いている時にタイルの入れ替えを実行する
-    if(Math.abs(x)>=60 || Math.abs(y)>=30){
+    if(Math.abs(x)>=30 || Math.abs(y)>=30){
         //xが大きい時
-        if(Math.abs(x)/2>Math.abs(y)){
+        if(Math.abs(x)>Math.abs(y)){
             //正の数の時
             if(x>0){
                 //Right
@@ -134,4 +134,3 @@ function swap(i,j){
     tiles[j].textContent = tmp.content;
     tiles[j].value = tmp.val;
 }
-
