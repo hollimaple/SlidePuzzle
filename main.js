@@ -3,6 +3,11 @@
 var tiles = []; //タイルの配列
 //ユーザーエージェント判定
 const is_iOS = /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent) && 'ontouchend' in document;
+//移動フラグ
+var moveTo = {
+    x: 0,
+    y: 0
+}; //前回移動方向 x:1右 -1左 y:1上 -1下
 
 //差し替え可能なところはJQueryの記述に書き直しを行った
 //画面読み込み時に実行
@@ -36,25 +41,13 @@ window.addEventListener('DOMContentLoaded', function(e){
     if (is_iOS){
         DeviceOrientationEvent.requestPermission().then(response => {
             if (response === "granted") {
-                window.addEventListener("deviceorientation", function(){
-                    //1秒ごとにイベント
-                    setInterval(() => {
-                        deviceOrientation(e);
-                    },500);
-                }
-                , false);
+                window.addEventListener("deviceorientation", deviceOrientation, false);
             }
         }).catch((e) => {
             console.error(e);
         })
     }else{
-        window.addEventListener("deviceorientation", function(){
-            //1秒ごとにイベント
-            setInterval(() => {
-                deviceOrientation(e);
-            },500);
-        }
-        , false);
+        window.addEventListener("deviceorientation", deviceOrientation, false);
     }
 
 });
@@ -69,9 +62,12 @@ function deviceOrientation(e){
     vec.y = e.beta * coefficient; //y方向の移動量
     //加速度センサーのイベントが発火したら
     //移動量から入れ替え要不要、入れ替え方向を判断
-    //1秒ごとにイベント
     move(vec.x,vec.y);
-
+    //1秒ごとに前回移動方向をリセット
+    setInterval(() => {
+        moveTo.x = 0;
+        moveTo.y = 0;
+    },1000);
 }
 
 //スマートフォン端末を動かすことでタイルを動かす
@@ -86,7 +82,7 @@ function move(x,y){
     }
 
     //絶対値が閾値以上傾いている時にタイルの入れ替えを実行する
-    if(Math.abs(x)>=30 || Math.abs(y)>=30){
+    if(Math.abs(x)>=20 || Math.abs(y)>=20){
         //xが大きい時
         if(Math.abs(x)>Math.abs(y)){
             //正の数の時
@@ -95,15 +91,22 @@ function move(x,y){
                 //空いているタイルindexが
                 //4の倍数の時はこれ以上swapする必要がない(衝突判定)
                 //(4の倍数の時以外はswap)
-                if((index%4) != 0){
-                    swap(index,index-1);
+                if(moveTo.x != 1){
+                    if((index%4) != 0){
+                        swap(index,index-1);
+                    }
+                    moveTo.x = 1;
                 }
+                
             }else{
                 //負の数の時
                 //Left
                 //4の倍数-1の時はこれ以上swapする必要がない
-                if((index%4) != 3){
-                    swap(index,index+1);
+                if(moveTo.x != -1){
+                    if((index%4) != 3){
+                        swap(index,index+1);
+                    }
+                    moveTo.x = -1;
                 }
             }
         }else{
@@ -112,16 +115,22 @@ function move(x,y){
             if(y>0){
                 //Down
                 //下に要素がない時はこれ以上swapする必要がない
-                if((index-4) >= 0){
-                    swap(index,index-4);
+                if(moveTo.y != -1){
+                    if((index-4) >= 0){
+                        swap(index,index-4);
+                    }
+                    moveTo.y = -1;
                 }
             }else{
                 //負の数の時
                 //Up
                 //上に要素がない時はこれ以上swapする必要がない
-                if((index+4) < 16){
-                    swap(index,index+4);
+                if(moveTo.y != 1){
+                    if((index+4) < 16){
+                        swap(index,index+4);
+                    }
                 }
+                moveTo.y = 1;
             }
         }
     }
