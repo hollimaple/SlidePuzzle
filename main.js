@@ -47,19 +47,7 @@ window.addEventListener('DOMContentLoaded', function(){
 
 });
 
-//参考:https://www.sejuku.net/blog/24629
-//待機用関数
-//Promiseを使う方法
-function sleepByPromise(sec) {
-    return new Promise(resolve => setTimeout(resolve, sec*1000));
-}
-
-//async修飾子を使って非同期関数を宣言
-async function wait(sec) {
-    // await句を使って、Promiseの非同期処理が完了するまで待機
-    await sleepByPromise(sec);
-}
-
+//参考:https://kkblab.com/make/javascript/acc.html
 //参考:https://dianxnao.com/javascript%E7%AB%AF%E6%9C%AB%E3%81%AE%E5%82%BE%E3%81%8D%E3%81%AB%E5%BF%9C%E3%81%98%E3%81%A6%E3%83%9C%E3%83%BC%E3%83%AB%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/
 //加速度センサーの値を取得
 function deviceOrientation(e){
@@ -69,9 +57,11 @@ function deviceOrientation(e){
     vec.y = e.beta * coefficient; //y方向の移動量
     //加速度センサーのイベントが発火したら
     //移動量から入れ替え要不要、入れ替え方向を判断
-    move(vec.x,vec.y);
-    //一秒待機させる
-    wait(2);
+    //1秒ごとにイベント
+    window.setInterval(() => {
+        move(vec.x,vec.y);
+    },1000);
+
 }
 
 //スマートフォン端末を動かすことでタイルを動かす
