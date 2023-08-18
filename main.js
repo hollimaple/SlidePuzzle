@@ -63,13 +63,6 @@ function deviceOrientation(e){
     //加速度センサーのイベントが発火したら
     //移動量から入れ替え要不要、入れ替え方向を判断
     move(vec.x,vec.y);
-    //1秒ごとに前回移動方向をリセット
-    /*
-    setInterval(() => {
-        moveTo.x = 0;
-        moveTo.y = 0;
-    },1000);
-    */
 }
 
 //スマートフォン端末を動かすことでタイルを動かす
@@ -98,6 +91,7 @@ function move(x,y){
                         swap(index,index-1);
                     }
                     moveTo.x = 1;
+                    moveTo.y = 0;
                 }
                 
             }else{
@@ -109,6 +103,7 @@ function move(x,y){
                         swap(index,index+1);
                     }
                     moveTo.x = -1;
+                    moveTo.y = 0;
                 }
             }
         }else{
@@ -121,6 +116,7 @@ function move(x,y){
                     if((index-4) >= 0){
                         swap(index,index-4);
                     }
+                    moveTo.x = 0;
                     moveTo.y = -1;
                 }
             }else{
@@ -132,9 +128,13 @@ function move(x,y){
                         swap(index,index+4);
                     }
                 }
+                moveTo.x = 0;
                 moveTo.y = 1;
             }
         }
+    }else{
+        moveTo.x = 0;
+        moveTo.y = 0;
     }
 }
 
