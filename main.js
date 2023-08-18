@@ -166,6 +166,7 @@ function swap(i,j){
     tiles[j].value = tmp.val;
     //swap後にパズルが完成していればダイアログを出す
     let n = tiles.length;
+    let count = 0;
     for(let k=0;k<n;k++){
         if(tiles[k] == k){
             count++;
