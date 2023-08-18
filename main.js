@@ -36,13 +36,13 @@ window.addEventListener('DOMContentLoaded', function(){
     //ダイアログが出ないため、ユーザーエージェント判定だけを行う
     //参考:https://zenn.dev/homing/articles/705ac9c0cd1006
     if (is_iOS){
-        navigator.permissions.query({ name:"gyroscope"}).then(response => {
+        DeviceOrientationEvent.requestPermission().then(response => {
             if (response === "granted") {
                 window.addEventListener("deviceorientation", deviceOrientation, false);
             }
-        }).catch((function(error) {
-            console.log("error");
-        }))
+        }).catch((e) => {
+            console.error(e);
+        })
     }else{
         window.addEventListener("deviceorientation", deviceOrientation, false);
     }
