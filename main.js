@@ -61,15 +61,15 @@ function move(x,y){
                 //空いているタイルindexが
                 //4の倍数の時はこれ以上swapする必要がない(衝突判定)
                 //(4の倍数の時以外はswap)
-                if((index%4) != 3){
-                    swap(index,index+1);
+                if((index%4) != 0){
+                    swap(index,index-1);
                 }
             }else{
                 //負の数の時
-                //Right
+                //Left
                 //4の倍数-1の時はこれ以上swapする必要がない
-                if((index%4) != 0){
-                    swap(index,index-1);
+                if((index%4) != 3){
+                    swap(index,index+1);
                 }
             }
         }else{
@@ -78,15 +78,15 @@ function move(x,y){
             if(y>0){
                 //Down
                 //下に要素がない時はこれ以上swapする必要がない
-                if((index+4) < 16){
-                    swap(index,index+4);
+                if((index-4) >= 0){
+                    swap(index,index-4);
                 }
             }else{
                 //負の数の時
                 //Up
                 //上に要素がない時はこれ以上swapする必要がない
-                if((index-4) >= 0){
-                    swap(index,index-4);
+                if((index+4)  < 16){
+                    swap(index,index+4);
                 }
             }
         }
