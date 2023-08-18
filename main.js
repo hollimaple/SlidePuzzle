@@ -61,7 +61,6 @@ function move(x,y){
                 //負の数の時
                 swap(index,index-1);
             }
-
         }else{
             //yが大きい時
             //正の数の時
@@ -96,9 +95,13 @@ function click(index){
 
 //タイルの入れ替え
 function swap(i,j){
-    let tmp = tiles[i].value;
+    let tmp = {
+        value: tiles[i].value,
+        textContent: tiles[i].textContent
+    }
+    console.log(tmp);
     tiles[i].textContent = tiles[j].textContent;
     tiles[i].value = tiles[j].value;
-    tiles[j].textContent = "";
-    tiles[j].value = tmp;
+    tiles[j].textContent = tmp.textContent;
+    tiles[j].value = tmp.value;
 }
