@@ -34,20 +34,13 @@ window.addEventListener('DOMContentLoaded', function(){
     //iOS対応
     //参考:https://zenn.dev/homing/articles/705ac9c0cd1006
     if (is_iOS){
-        if (typeof DeviceOrientationEvent.requestPermission === 'function'){
-            DeviceOrientationEvent.requestPermission().then(response => {
-                if (response === "granted") {
-                    window.addEventListener("deviceorientation", deviceOrientation, false);
-                }
-            }).catch((function(error) {
-                console.log("error");
-                // Trigger modal to ask for permissions
-                $('#askForPermission').modal('toggle')
-            }))
-        }else{
-            // handle regular non iOS 13+ devices
-            window.addEventListener("deviceorientation", deviceOrientation, false);
-        }
+        navigation.permissions.request({ name: "gyroscope" }).then(response => {
+            if (response === "granted") {
+                window.addEventListener("deviceorientation", deviceOrientation, false);
+            }
+        }).catch((function(error) {
+            console.log("error");
+        }))
     }else{
         window.addEventListener("deviceorientation", deviceOrientation, false);
     }
