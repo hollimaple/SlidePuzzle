@@ -51,7 +51,7 @@ function move(x,y){
     }
 
     //絶対値が閾値以上傾いている時にタイルの入れ替えを実行する
-    if(Math.abs(x)>=2 || Math.abs(y)>=2){
+    if(Math.abs(x)>=3 || Math.abs(y)>=3){
         //xが大きい時
         if(Math.abs(x)>Math.abs(y)){
             //正の数の時
