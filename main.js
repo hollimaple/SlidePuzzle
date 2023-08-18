@@ -2,11 +2,12 @@
 
 var tiles = []; //タイルの配列
 
+//差し替え可能なところはJQueryの記述に書き直しを行った
 //画面読み込み時に実行
 window.addEventListener('DOMContentLoaded', function(){
     let table = $("#table").get(0);
     for(let i=0;i<4;i++){
-        let tr = document.createElement("tr");
+        let tr = $("<tr>").get(0);
         for(let j=0;j<4;j++){
             //表の列作成
             let index = i*4 + j;
@@ -56,8 +57,8 @@ function move(x,y){
         if(Math.abs(x)>Math.abs(y)){
             //正の数の時
             if(x>0){
-                //Right
-                //空いているタイルiが
+                //Left
+                //空いているタイルindexが
                 //4の倍数の時はこれ以上swapする必要がない(衝突判定)
                 //(4の倍数の時以外はswap)
                 if((index%4) != 3){
@@ -65,7 +66,7 @@ function move(x,y){
                 }
             }else{
                 //負の数の時
-                //Left
+                //Right
                 //4の倍数-1の時はこれ以上swapする必要がない
                 if((index%4) != 0){
                     swap(index,index-1);
@@ -77,14 +78,14 @@ function move(x,y){
             if(y>0){
                 //Down
                 //下に要素がない時はこれ以上swapする必要がない
-                if((i+4) < 16){
+                if((index+4) < 16){
                     swap(index,index+4);
                 }
             }else{
                 //負の数の時
                 //Up
                 //上に要素がない時はこれ以上swapする必要がない
-                if((i-4) >= 0){
+                if((index-4) >= 0){
                     swap(index,index-4);
                 }
             }
@@ -117,3 +118,4 @@ function swap(i,j){
     tiles[j].textContent = tmp.content;
     tiles[j].value = tmp.val;
 }
+
