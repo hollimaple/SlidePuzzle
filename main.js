@@ -1,10 +1,15 @@
+//15スライドパズル改良版
+//タッチでなく、スマートフォンの傾きを検知して、空いているタイルと入れ替えを行う
+
 "use strict";
 
+//グローバル変数
+//どこからでも参照する必要がないものはletで定義
 var tiles = []; //タイルの配列
 //ユーザーエージェント判定
 const is_iOS = /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent) && 'ontouchend' in document;
 //移動フラグ
-//1個づつスライドするようにする
+//1個づつスライドする
 var moveTo = {
     x: 0,
     y: 0
@@ -34,6 +39,7 @@ window.addEventListener('DOMContentLoaded', function(e){
         table.append(tr);
     }
     //盤面の初期化(クリックを呼び出すことで解ける問題とする)
+    //forループの終了条件の値を大きくすることで問題が難しくなる
     for(let i=0;i<100;i++){
         click(Math.floor(Math.random()*16));
     }
@@ -79,6 +85,8 @@ function move(x,y){
     }
     //絶対値が閾値以上傾いている時にタイルの入れ替えを実行する
     if(Math.abs(x)>=25 || Math.abs(y)>=25){
+        //スマートフォンで加速度を検知できるようになってから
+        //move関数が呼ばれるようになる
         //スタートフラグを切る
         is_start = false;
         //xが大きい時
@@ -136,6 +144,7 @@ function move(x,y){
             }
         }
     }else{
+        //スマートフォンが水平に戻ったら、前回移動方向フラグをリセットする
         moveTo.x = 0;
         moveTo.y = 0;
     }
@@ -168,13 +177,15 @@ function swap(i,j){
     //swap後にパズルが完成していればダイアログを出す
     let n = tiles.length;
     let count = 0;
+    //パズルが完成しているか確認
     for(let k=0;k<n;k++){
         if(tiles[k].value == k){
             count++;
         }
     }
     if(n == count){
-        //開始時じゃないときは完成アラートを出す
+        //開始時じゃないときにパズルが完成すれば
+        //完成アラートを出す
         if(!is_start){
             alert("パズルが完成しました!");
         }
