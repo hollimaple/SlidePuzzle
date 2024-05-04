@@ -43,20 +43,40 @@ window.addEventListener('DOMContentLoaded', function(e){
     for(let i=0;i<100;i++){
         click(Math.floor(Math.random()*16));
     }
-    //iOS対応（中止）
-    //ダイアログが出ないため、ユーザーエージェント判定だけを行う
+    //iOS対応 2024/05/04
+    //ユーザーエージェント判定を行う
     //参考:https://zenn.dev/homing/articles/705ac9c0cd1006
-    if (is_iOS){
-        DeviceOrientationEvent.requestPermission().then(response => {
-            if (response === "granted") {
-                window.addEventListener("deviceorientation", deviceOrientation, false);
-            }
-        }).catch((e) => {
-            console.error(e);
-        })
-    }else{
-        //Androidはそのまま加速度センサーの値を取得していく
-        window.addEventListener("deviceorientation", deviceOrientation, false);
+    function ClickRequestDeviceSensor(){
+        if (is_iOS){
+            DeviceOrientationEvent.requestPermission().then(response => {
+                if (response === "granted") {
+                    window.addEventListener("deviceorientation", deviceOrientation, false);
+                    $("#sensorrequest").css("display", "none");
+                }
+            }).catch((e) => {
+                console.error(e);
+            })
+        }else{
+            //Androidはそのまま加速度センサーの値を取得していく
+            window.addEventListener("deviceorientation", deviceOrientation, false);
+        }
+    }
+
+    if (window.DeviceOrientationEvent) {
+        if (
+        DeviceOrientationEvent.requestPermission &&
+        typeof DeviceOrientationEvent.requestPermission === "function"
+        ) {
+            var banner =
+                `<div id="sensorrequest">
+                <button type="button">センサー有効化</button>　
+                </div>`;
+            $("body").prepend(banner);
+            var button = document.getElementById('sensorrequest');
+            button.addEventListener('click', ClickRequestDeviceSensor);
+        } else {
+            window.addEventListener("deviceorientation", deviceOrientation, false);
+        }
     }
 });
 
