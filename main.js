@@ -84,7 +84,8 @@ window.addEventListener('DOMContentLoaded', function(e){
 //参考:https://dianxnao.com/javascript%E7%AB%AF%E6%9C%AB%E3%81%AE%E5%82%BE%E3%81%8D%E3%81%AB%E5%BF%9C%E3%81%98%E3%81%A6%E3%83%9C%E3%83%BC%E3%83%AB%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/
 //加速度センサーの値を取得
 function deviceOrientation(e){
-    const coefficient = is_iOS ? -1 : 1;
+    //const coefficient = is_iOS ? -1 : 1;
+    const coefficient = 1;
     let vec = {x: 0, y: 0}; //加速度センサー値格納用
     vec.x = e.gamma * coefficient; //x方向の移動量
     vec.y = e.beta * coefficient; //y方向の移動量
